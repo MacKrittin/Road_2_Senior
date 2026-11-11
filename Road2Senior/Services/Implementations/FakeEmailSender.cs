@@ -14,7 +14,7 @@ namespace Road2Senior.Services.Implementations
         public Task SendAsync(string to, string subject, string body)
         {
 
-            _logger.LogWarning("[Testing Logging] Recipient: {To}, Subject: {Subject}, Email Sent To {To}",to,subject,to);
+            _logger.LogWarning("[this message is for testing the mail is not sending to anyone] Recipient: {To}, Subject: {Subject}, Body : {Body}",to,subject,body);
 
             return Task.CompletedTask;
 

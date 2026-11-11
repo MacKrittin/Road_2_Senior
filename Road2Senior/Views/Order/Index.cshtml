@@ -4,9 +4,9 @@
 
 @section Scripts{
     <script>
-        var urlConfirmRelative = "Order/Confirm"; // relative url
-        var urlConfirm = '@Url.Action("Order","Confirm")';
-        var urlSuccess = '@Url.Action("Order","Success")';
+
+        var urlConfirm = '@Url.Action("Confirm", "Order")';
+        var urlSuccess = '@Url.Action("Success", "Order")';
 
 
         $(document).ready({
@@ -17,16 +17,16 @@
         function confirmBtn(){
 
             // เอาบัตรไปให้ยาม
-            const token = $('input[name="__RequestVerificationToken"]');
+            const token = $('input[name="__RequestVerificationToken"]').val();
 
             $.ajax({
                 url: urlConfirm,
                 type: "POST",
-                header: {"RequestVerificationToken": token},
+                headers: {"RequestVerificationToken": token},
                 data: {orderId: 1},
                 success: function () {
                     
-                    window.location.href(urlSuccess);
+                    window.location.href = urlSuccess;
 
                 },
                 error: function (xhr, status, error) {
