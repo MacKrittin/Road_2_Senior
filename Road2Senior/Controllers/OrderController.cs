@@ -1,0 +1,30 @@
+﻿using Microsoft.AspNetCore.Identity.UI.Services;
+using Microsoft.AspNetCore.Mvc;
+using IEmailSender = Road2Senior.Services.Interfaces.IEmailSender;
+
+namespace Road2Senior.Controllers
+{
+    public class OrderController : Controller
+    {
+        private readonly IEmailSender _emailSender;
+
+        public OrderController(IEmailSender emailSender)
+        {
+            _emailSender = emailSender;
+        }
+        public IActionResult Index()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Confirm(int orderId)
+        {
+            // ... บันทึก Order
+
+            await _emailSender.SendAsync("customer@mail.com", "Order confirmed", $"Order #{orderId}");
+            return RedirectToAction("Success");
+        }
+
+    }
+}
