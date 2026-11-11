@@ -1,8 +1,13 @@
-﻿<button onclick="confirmBtn()" class="btn-success">Confirm</button>
+﻿@Html.AntiForgeryToken()
+
+<button onclick="confirmBtn()" class="btn-success">Confirm</button>
 
 @section Scripts{
     <script>
-        var urlConfirm = "Order/Confirm";
+        var urlConfirmRelative = "Order/Confirm"; // relative url
+        var urlConfirm = '@Url.Action("Order","Confirm")';
+        var urlSuccess = '@Url.Action("Order","Success")';
+
 
         $(document).ready({
 
@@ -10,17 +15,22 @@
         
 
         function confirmBtn(){
+
+            // เอาบัตรไปให้ยาม
+            const token = $('input[name="__RequestVerificationToken"]');
+
             $.ajax({
                 url: urlConfirm,
                 type: "POST",
+                header: {"RequestVerificationToken": token},
                 data: {orderId: 1},
-                success: function (response) {
-                    console.log(response);
+                success: function () {
+                    
+                    window.location.href(urlSuccess);
+
                 },
                 error: function (xhr, status, error) {
-                    console.log(xhr.error);
-                },
-                complete: function () {
+                    console.error("Confirm Failed:", xhr.status, error);
 
                 }
             });

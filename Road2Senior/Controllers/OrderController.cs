@@ -22,13 +22,13 @@ namespace Road2Senior.Controllers
         }
 
         [HttpPost]
-        //[ValidateAntiForgeryToken]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Confirm(int orderId)
         {
             // ... บันทึก Order
 
             await _emailSender.SendAsync("customer@mail.com", "Order confirmed", $"Order #{orderId}");
-            return RedirectToAction("Success");
+            return Ok("Success");
         }
 
     }

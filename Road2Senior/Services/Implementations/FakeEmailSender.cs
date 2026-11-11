@@ -11,12 +11,12 @@ namespace Road2Senior.Services.Implementations
             _logger = logger;
         }
 
-        public async Task SendAsync(string to, string subject, string body)
+        public Task SendAsync(string to, string subject, string body)
         {
-            _logger.LogInformation("Starting email sending..." 
-                + Environment.NewLine + "Recipient: {To}", to 
-                + Environment.NewLine + "Subject: {Subject}", subject 
-                + Environment.NewLine + "Test Email sent successfully to {To}", to);
+
+            _logger.LogWarning("[Testing Logging] Recipient: {To}, Subject: {Subject}, Email Sent To {To}",to,subject,to);
+
+            return Task.CompletedTask;
 
         }
     }
