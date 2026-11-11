@@ -1,0 +1,32 @@
+﻿<button onclick="confirmBtn()" class="btn-success">Confirm</button>
+
+@section Scripts{
+    <script>
+        var urlConfirm = "Order/Confirm";
+
+        $(document).ready({
+
+        });
+        
+
+        function confirmBtn(){
+            $.ajax({
+                url: urlConfirm,
+                type: "POST",
+                data: {orderId: 1},
+                contentType: false,
+                success: function (response) {
+                    console.log(response);
+                },
+                error: function (xhr, status, error) {
+
+                },
+                complete: function () {
+
+                }
+            });
+        }
+        
+
+    </script>
+}

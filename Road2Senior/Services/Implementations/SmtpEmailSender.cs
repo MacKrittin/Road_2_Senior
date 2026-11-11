@@ -1,11 +1,10 @@
 ﻿using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.UI.Services;
-using System.Net.Mail;
 using Road2Senior.Services.Interfaces;
+using System.Net.Mail;
 
 namespace Road2Senior.Services.Implementations
 {
-    public class SmtpEmailSender : Interfaces.IEmailSender
+    public class SmtpEmailSender : IEmailSender
     {
         private readonly IConfiguration _config; // di
 

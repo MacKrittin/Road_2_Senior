@@ -1,6 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity.UI.Services;
+﻿using Road2Senior.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
-using IEmailSender = Road2Senior.Services.Interfaces.IEmailSender;
 
 namespace Road2Senior.Controllers
 {
@@ -13,6 +12,11 @@ namespace Road2Senior.Controllers
             _emailSender = emailSender;
         }
         public IActionResult Index()
+        {
+            return View();
+        }
+
+        public IActionResult Success()
         {
             return View();
         }
