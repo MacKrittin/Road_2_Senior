@@ -14,12 +14,11 @@
                 url: urlConfirm,
                 type: "POST",
                 data: {orderId: 1},
-                contentType: false,
                 success: function (response) {
                     console.log(response);
                 },
                 error: function (xhr, status, error) {
-
+                    console.log(xhr.error);
                 },
                 complete: function () {
 
