@@ -16,7 +16,7 @@ namespace Road2Senior.Services.Implementations
             _logger.LogInformation("Starting email sending..." 
                 + Environment.NewLine + "Recipient: {To}", to 
                 + Environment.NewLine + "Subject: {Subject}", subject 
-                + Environment.NewLine + "Email sent successfully to {To}", to);
+                + Environment.NewLine + "Test Email sent successfully to {To}", to);
 
         }
     }

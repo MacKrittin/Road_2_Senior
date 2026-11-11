@@ -22,7 +22,7 @@ namespace Road2Senior.Controllers
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
+        //[ValidateAntiForgeryToken]
         public async Task<IActionResult> Confirm(int orderId)
         {
             // ... บันทึก Order
