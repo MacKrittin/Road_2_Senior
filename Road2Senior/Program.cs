@@ -1,3 +1,4 @@
+using Road2Senior.Models;
 using Road2Senior.Services.Implementations;
 using Road2Senior.Services.Interfaces;
 
@@ -7,6 +8,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 //builder.Services.AddScoped<IEmailSender, SmtpEmailSender>();
 builder.Services.AddScoped<IEmailSender, FakeEmailSender>();
+builder.Services.AddScoped<OperationTracker, OperationTracker>();
 
 var app = builder.Build();
 
