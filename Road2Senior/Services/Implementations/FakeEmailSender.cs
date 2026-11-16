@@ -18,8 +18,8 @@ namespace Road2Senior.Services.Implementations
         public Task SendAsync(string to, string subject, string body)
         {
             var operationTrackerMsg = _operationTracker.Id.ToString();
-            _logger.LogInformation("[FAKE EMAIL GUID] : {1}", operationTrackerMsg);
-            _logger.LogWarning("[FAKE EMAIL - NOT SEND] Recipient: {To}, Subject: {Subject}, Body : {Body}",to,subject,body);
+            _logger.LogInformation("[FAKE EMAIL GUID] : {TrackerId}", operationTrackerMsg);
+            _logger.LogWarning("[FAKE EMAIL - NOT SENT] Recipient: {To}, Subject: {Subject}, Body : {Body}",to,subject,body);
 
             return Task.CompletedTask;
 
