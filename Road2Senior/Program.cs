@@ -1,3 +1,4 @@
+using Microsoft.Extensions.DependencyInjection;
 using Road2Senior.Models;
 using Road2Senior.Services.Implementations;
 using Road2Senior.Services.Interfaces;
@@ -7,7 +8,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
-// 1. Register Email Sender implementations
+// 1. Register actual implementations
 if (builder.Environment.IsDevelopment())
 {
     builder.Services.AddScoped<FakeEmailSender>();
@@ -17,19 +18,30 @@ else
     builder.Services.AddScoped<SmtpEmailSender>();
 }
 
-// 2. Register IEmailSender using Factory Lambda
+// 2. Register Logging Decorator
+builder.Services.AddScoped<LoggingEmailSender>();
+
+// 3. Register IEmailSender using Factory Lambda
 builder.Services.AddScoped<IEmailSender>(sp =>
 {
+    IEmailSender actualSender;
+
     if (builder.Environment.IsDevelopment())
     {
-        return sp.GetRequiredService<FakeEmailSender>();
+        actualSender = sp.GetRequiredService<FakeEmailSender>();
+    }
+    else
+    {
+        actualSender = sp.GetRequiredService<SmtpEmailSender>();
     }
 
-    return sp.GetRequiredService<SmtpEmailSender>();
-});
+    var logger = sp.GetRequiredService<ILogger<LoggingEmailSender>>();
 
-// 3. Register NotificationService
-builder.Services.AddScoped<LoggingEmailSender>();
+    return new LoggingEmailSender(
+    logger: logger,
+    emailSender: actualSender
+);
+});
 
 builder.Services.AddTransient<OperationTracker>();
 
