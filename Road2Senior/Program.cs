@@ -9,7 +9,7 @@ builder.Services.AddControllersWithViews();
 
 if (builder.Environment.IsDevelopment())
 {
-    builder.Services.AddSingleton<IEmailSender, FakeEmailSender>();
+    builder.Services.AddScoped<IEmailSender, FakeEmailSender>();
 }
 else
 {
