@@ -6,9 +6,17 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
-//builder.Services.AddScoped<IEmailSender, SmtpEmailSender>();
-builder.Services.AddScoped<IEmailSender, FakeEmailSender>();
-builder.Services.AddScoped<OperationTracker, OperationTracker>();
+
+if (builder.Environment.IsDevelopment())
+{
+    builder.Services.AddSingleton<IEmailSender, FakeEmailSender>();
+}
+else
+{
+    builder.Services.AddScoped<IEmailSender, SmtpEmailSender>();
+}
+
+builder.Services.AddTransient<OperationTracker>();
 
 var app = builder.Build();
 
