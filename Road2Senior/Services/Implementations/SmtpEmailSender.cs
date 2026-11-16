@@ -19,7 +19,7 @@ namespace Road2Senior.Services.Implementations
         {
             using var client = new SmtpClient(_config["Smtp:Host"], int.Parse(_config["Smtp:Port"]!));
             var message = new MailMessage("noreply@company.com", to, subject, body);
-            _logger.LogWarning("[Mail Sent] Recipient: {To}, Subject: {Subject}, Body : {Body}", to, subject, body);
+            _logger.LogInformation("[Sending Email] Recipient: {To}, Subject: {Subject}, Body : {Body}", to, subject, body);
             await client.SendMailAsync(message);
         }
     }

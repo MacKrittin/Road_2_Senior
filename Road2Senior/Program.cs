@@ -7,14 +7,29 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
+// 1. Register Email Sender implementations
 if (builder.Environment.IsDevelopment())
 {
-    builder.Services.AddScoped<IEmailSender, FakeEmailSender>();
+    builder.Services.AddScoped<FakeEmailSender>();
 }
 else
 {
-    builder.Services.AddScoped<IEmailSender, SmtpEmailSender>();
+    builder.Services.AddScoped<SmtpEmailSender>();
 }
+
+// 2. Register IEmailSender using Factory Lambda
+builder.Services.AddScoped<IEmailSender>(sp =>
+{
+    if (builder.Environment.IsDevelopment())
+    {
+        return sp.GetRequiredService<FakeEmailSender>();
+    }
+
+    return sp.GetRequiredService<SmtpEmailSender>();
+});
+
+// 3. Register NotificationService
+builder.Services.AddScoped<LoggingEmailSender>();
 
 builder.Services.AddTransient<OperationTracker>();
 
@@ -37,6 +52,6 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+    pattern: "{controller=Order}/{action=Index}/{id?}");
 
 app.Run();
